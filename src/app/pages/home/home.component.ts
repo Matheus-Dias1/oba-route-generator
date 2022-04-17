@@ -73,7 +73,6 @@ export class HomeComponent implements OnInit {
       });
 
       this.files = schools;
-      // TODO: Loading animation
       this.loading = true;
       await this.setCoordinates();
       setTimeout(() => {

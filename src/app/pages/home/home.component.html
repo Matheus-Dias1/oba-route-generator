@@ -7,7 +7,7 @@
     <app-button (click)="onDownloadTemplate()">Baixar template</app-button>
   </div>
   <label class="input" for="upload-files">
-    <mat-spinner *ngIf="loading"></mat-spinner>
+    <app-loader *ngIf="loading"></app-loader>
     <img *ngIf="!loading" src="../../../assets/csv_file.svg" />
     <p class="gradient-text" *ngIf="!loading">Selecione<br />os arquivos</p>
   </label>
