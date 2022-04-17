@@ -1,0 +1,32 @@
+.container{
+  height: 100%;
+  display: flex;
+  gap: 3em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+
+}
+
+img {
+  width: 6em;
+}
+
+p {
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+}

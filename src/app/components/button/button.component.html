@@ -1,0 +1,5 @@
+<div class="container" [ngClass]="{ disabled }">
+  <button type="button" [disabled]="disabled" [ngClass]="{ leaked, disabled }">
+    <p [ngClass]="{ 'gradient-text': leaked }"><ng-content></ng-content></p>
+  </button>
+</div>

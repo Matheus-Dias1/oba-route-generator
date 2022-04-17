@@ -1,0 +1,14 @@
+<google-map
+  height="100%"
+  width="100%"
+  *ngIf="apiLoaded | async"
+  [center]="center"
+  [options]="mapOptions"
+  [zoom]="13"
+>
+  <map-marker
+    *ngFor="let school of schools; let i = index"
+    [position]="school"
+    [options]="getMarkerOptions(i)"
+  ></map-marker>
+</google-map>

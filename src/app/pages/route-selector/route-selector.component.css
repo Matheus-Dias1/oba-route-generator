@@ -1,0 +1,51 @@
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+button:first-of-type{
+  transform: rotate(180deg);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5em;
+}
+
+h1 {
+  display: inline;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+h1 h1 {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+app-button{
+  margin-left: auto;
+}
+
+.selector {
+  display: flex;
+  justify-content: center;
+  gap: 1.1em;
+}
+
+p{
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.selector p {
+  font-size: 5em;
+  font-weight: 700;
+}
+

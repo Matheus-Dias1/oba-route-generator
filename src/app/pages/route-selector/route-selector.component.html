@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>
+    Foram carregados
+    <h1 class="gradient-text">{{ numSchools }}</h1>
+    endereços
+  </h1>
+  <div>
+    <div class="selector">
+      <button (click)="onClick('SUB')">
+        <img src="../../../assets/chevron.svg" />
+      </button>
+      <p class="gradient-text">{{ numRoutes }}</p>
+      <button (click)="onClick('ADD')">
+        <img src="../../../assets/chevron.svg" />
+      </button>
+    </div>
+    <p>{{ numRoutes === 1 ? "rota desejada" : "rotas desejadas" }}</p>
+  </div>
+  <app-button (click)="onSelection()">Continuar</app-button>
+</div>

@@ -1,0 +1,24 @@
+.container{
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+main {
+  flex-grow: 1;
+}
+
+.list {
+  margin-top: 1.5em;
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+
+.actions {
+  display: flex;
+  justify-content: end;
+}

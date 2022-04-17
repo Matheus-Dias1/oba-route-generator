@@ -1,0 +1,16 @@
+<div class="container">
+  <main>
+    <h1>Quais itens devem aparecer nos recibos?</h1>
+    <div class="list">
+      <app-button
+        *ngFor="let item of items | keyvalue"
+        [leaked]="!item.value"
+        (click)="onClick(item.key)"
+        >{{ item.key }}</app-button
+      >
+    </div>
+  </main>
+  <div class="actions">
+    <app-button (click)="onContinue()">Continuar</app-button>
+  </div>
+</div>

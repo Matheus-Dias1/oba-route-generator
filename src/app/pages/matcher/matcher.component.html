@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="header">
+    <h1>Escolha o endereço correspondente</h1>
+    <p class="name">{{ matching[0] ? matching[0].name : "" }}</p>
+    <p class="address">
+      {{ matching[0] ? matching[0].address.geocodedAddr : "" }}
+    </p>
+  </div>
+  <ul class="list">
+    <li *ngFor="let school of looking; let i = index">
+      <div class="divider" *ngIf="i !== 0"></div>
+      <div class="option-container">
+        <div class="option" (click)="selected = i">
+          <p class="name">{{ school.name }}</p>
+          <p class="address">{{ school.address.geocodedAddr }}</p>
+        </div>
+        <img *ngIf="selected === i" src="../../../assets/selected.svg" />
+      </div>
+    </li>
+  </ul>
+  <div class="actions">
+    <app-button (click)="onClick('NO_MATCH')">Não está na lista</app-button>
+    <app-button [disabled]="selected === -1" (click)="onClick('MATCH')">
+      {{ matching.length === 1 ? "Continuar" : "Próxima" }}
+    </app-button>
+  </div>
+</div>

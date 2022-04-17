@@ -1,5 +1,7 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+  "types": [ "node" ],
+  "typeRoots": [ "../node_modules/@types" ],
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
@@ -16,8 +18,8 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
-    "module": "es2020",
+    "target": "esnext",
+    "module": "commonjs",
     "lib": [
       "es2020",
       "dom"

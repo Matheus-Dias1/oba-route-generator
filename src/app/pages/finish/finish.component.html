@@ -1,0 +1,12 @@
+<div class="container">
+  <main>
+    <img src="../../../assets/done.svg" />
+    <p>Rotas geradas com sucesso!</p>
+  </main>
+  <div class="actions">
+    <app-button [leaked]="true" (click)="onRestartClick()"
+      >Gerar outra rota</app-button
+    >
+    <app-button (click)="onDownloadClick()">Baixar rotas</app-button>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="content">
+    <article>
+      <h1>Gerar rotas e canhotos</h1>
+      <p>Para começar, selecione um ou mais arquivos <b>csv</b> compatíveis.</p>
+    </article>
+    <app-button (click)="onDownloadTemplate()">Baixar template</app-button>
+  </div>
+  <label class="input" for="upload-files">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <img *ngIf="!loading" src="../../../assets/csv_file.svg" />
+    <p class="gradient-text" *ngIf="!loading">Selecione<br />os arquivos</p>
+  </label>
+  <input
+    type="file"
+    id="upload-files"
+    multiple
+    accept=".csv"
+    [disabled]="loading"
+    (change)="onFileSelect($event)"
+  />
+</div>

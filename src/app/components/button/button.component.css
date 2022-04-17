@@ -1,0 +1,52 @@
+button {
+  padding: 0.3em 1em;
+  font-size: 0.8em;
+  box-sizing: border-box;
+  font-weight: 600;
+  position: relative;
+  background: transparent;
+  background-clip: padding-box; 
+  border: solid 3px transparent; 
+  border-radius: 9px;
+  min-width: 5em;
+  color: white;
+  cursor: pointer;
+}
+
+button:before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1;
+  margin: -3px; 
+  border-radius: inherit; 
+  background: var(--gradient);
+
+}
+
+.leaked {
+  background-color: white;
+}
+
+
+.container:hover{
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: 0.1s ease-in-out;
+  opacity: 1;
+}
+
+.disabled{
+  background-color: #C4C4C4;
+  background-image: none;
+  border-radius: 9px;
+}
+
+.disabled:hover{
+  transform: none;
+  cursor: auto;
+}
+
+.container {
+  width: fit-content;
+}
