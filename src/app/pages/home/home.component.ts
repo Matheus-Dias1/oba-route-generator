@@ -88,6 +88,7 @@ export class HomeComponent implements OnInit {
     const city = 'Uberlândia';
     this.files.forEach((file) => {
       file.forEach(async (school) => {
+        if (school.address.route) return;
         await this.mapsService.getCoordinates(school, city ? city : '');
       });
     });

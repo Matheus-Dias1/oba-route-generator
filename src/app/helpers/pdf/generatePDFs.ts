@@ -6,6 +6,7 @@ import routeListDefinition from './routeListDefinition';
 import routes from 'src/app/models/routes';
 
 export const getReceipt = (routes: routes, selectedItems: string[]) => {
+  if (selectedItems.length === 0) return;
   (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
   const doc = receiptDocDefinition(routes, selectedItems);
   const pdf = pdfMake.createPdf(doc);

@@ -22,7 +22,8 @@
           <p class="address">
             {{
               routes[routeKeys[currRoute - 1]].schools[index].address
-                .geocodedAddr
+                .geocodedAddr ||
+                routes[routeKeys[currRoute - 1]].schools[index].address.rawAddr
             }}
           </p>
         </div>
