@@ -1,7 +1,7 @@
 // import { distances } from '../mock/distances';
 
 const POPULATION_SIZE = 50000;
-const NUM_GENERATIONS = 100;
+const NUM_GENERATIONS = 200;
 const MUTATION_RATE = 0.6;
 
 type route = number[];
