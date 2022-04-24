@@ -105,7 +105,6 @@ function applyVerticalAlignment(
       if (align === 'bottom') {
         topMargin = maxRowHeight - allCellHeights[ci];
       } else if (align === 'center') {
-        console.log(node, rowIndex);
         topMargin = (maxRowHeight - allCellHeights[ci]) / 2;
       }
       if (topMargin) {

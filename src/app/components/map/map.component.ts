@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { DIRECTIONS_API_KEY } from 'src/environments/keys';
-import { ICoordinate } from '@whins/geo-cluster';
 
 import mapStyles from './mapStyles';
 

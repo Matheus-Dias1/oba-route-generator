@@ -32,21 +32,14 @@ export class RouteViewerComponent implements OnInit {
 
   ngOnInit(): void {
     this.clusterize();
-    this.nextRoute();
+    this.onNextRoute();
   }
-
   async nextRoute() {
-    this.loading = true;
     this.changeRoute('NEXT');
+    this.loading = true;
     const key = this.routeKeys[this.currRoute - 1];
     if (key.includes('OBA-')) {
-      this.markers = this.routes[key].schools;
-      this.routes[key].optimalRoute = [];
-      this.markers.forEach((_, i) => {
-        this.routes[key].optimalRoute!.push(i);
-      });
-      await delay(1000);
-      this.loading = false;
+      this.onNextRoute();
       return;
     }
     const distances = await this.mapsService.getDistances(
@@ -69,7 +62,7 @@ export class RouteViewerComponent implements OnInit {
     const noRouteAssigned = this.schools.filter(
       (school) => school.address.route === undefined
     );
-    geoCluster(noRouteAssigned, this.numRoutes);
+    if (noRouteAssigned.length) geoCluster(noRouteAssigned, this.numRoutes);
 
     for (let school of this.schools) {
       const route = school.address.route!;
@@ -81,9 +74,9 @@ export class RouteViewerComponent implements OnInit {
   }
 
   changeRoute(op: string) {
-    if (op === 'NEXT')
+    if (op === 'NEXT') {
       this.currRoute = Math.min(this.currRoute + 1, this.routeKeys.length);
-    else if (op === 'PREV') this.currRoute = Math.max(this.currRoute - 1, 1);
+    } else if (op === 'PREV') this.currRoute = Math.max(this.currRoute - 1, 1);
   }
 
   getRouteLength() {
@@ -92,13 +85,16 @@ export class RouteViewerComponent implements OnInit {
     return inKm.toFixed(1) + 'km';
   }
 
-  onNextRoute() {
+  async onNextRoute() {
     if (this.currRoute === this.routeKeys.length) {
       for (let key in this.routes) {
-        this.routes[key].schools = this.routes[key].optimalRoute!.map(
-          (i) => this.routes[key].schools[i]
-        );
+        if (this.routes[key].optimalRoute) {
+          this.routes[key].schools = this.routes[key].optimalRoute!.map(
+            (i) => this.routes[key].schools[i]
+          );
+        }
       }
+      await delay(100);
       this.onFinish.emit(this.routes);
     } else this.nextRoute();
   }
