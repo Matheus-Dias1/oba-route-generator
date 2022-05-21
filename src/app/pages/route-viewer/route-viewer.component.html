@@ -43,8 +43,11 @@
       <h2 class="gradient-text">Rota {{ routeKeys[this.currRoute - 1] }}</h2>
       <p>{{ getRouteLength() }}</p>
     </div>
-    <app-button (click)="onNextRoute()">{{
-      currRoute === routeKeys.length ? "Continuar" : "Próxima"
-    }}</app-button>
+    <div class="actions">
+      <app-button (click)="retryRoute()"> Nova rota </app-button>
+      <app-button (click)="onNextRoute()">{{
+        currRoute === routeKeys.length ? "Continuar" : "Próxima"
+      }}</app-button>
+    </div>
   </div>
 </div>

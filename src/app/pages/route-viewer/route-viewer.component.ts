@@ -24,6 +24,7 @@ export class RouteViewerComponent implements OnInit {
   // Data
   routes: routes = {};
   routeLength = 0;
+  currDistances: number[][] = [];
 
   // Aux
   routeKeys: string[] = [];
@@ -42,11 +43,11 @@ export class RouteViewerComponent implements OnInit {
       this.onNextRoute();
       return;
     }
-    const distances = await this.mapsService.getDistances(
+    this.currDistances = await this.mapsService.getDistances(
       this.routes[key].schools
     );
     await delay(1000);
-    const optimal = new OptimalRoute(distances);
+    const optimal = new OptimalRoute(this.currDistances);
     [this.routes[key].optimalRoute, this.routeLength] =
       await optimal.getRoute();
 
@@ -56,7 +57,19 @@ export class RouteViewerComponent implements OnInit {
     this.loading = false;
   }
 
-  async getDistanceMatrix(key: string) {}
+  async retryRoute() {
+    this.loading = true;
+    const key = this.routeKeys[this.currRoute - 1];
+    await delay(1000);
+    const optimal = new OptimalRoute(this.currDistances);
+    [this.routes[key].optimalRoute, this.routeLength] =
+      await optimal.getRoute();
+
+    this.markers = this.routes[key].optimalRoute!.map(
+      (i) => this.routes[key].schools[i]
+    );
+    this.loading = false;
+  }
 
   clusterize() {
     const noRouteAssigned = this.schools.filter(
