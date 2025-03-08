@@ -1,4 +1,4 @@
-.container{
+.container {
   padding: 1.5em;
   display: flex;
   flex-direction: column;
@@ -17,8 +17,7 @@ main {
   flex-wrap: wrap;
 }
 
-
 .actions {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
