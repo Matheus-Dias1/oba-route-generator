@@ -27,6 +27,7 @@
     "@turf/clusters-kmeans": "^6.5.0",
     "@turf/turf": "^6.5.0",
     "@whins/geo-cluster": "^1.0.6",
+    "exceljs": "^4.4.0",
     "install": "^0.13.0",
     "npm": "^8.7.0",
     "pdfmake": "^0.2.5",

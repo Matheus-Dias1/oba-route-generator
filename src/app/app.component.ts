@@ -27,10 +27,20 @@ export class AppComponent {
 
   onSchoolsLoaded(files: School[][]) {
     this.files = files;
-    if (files.length === 1) {
-      this.schools = files[0];
-      this.step += 2;
-    } else this.step += 1;
+    this.schools = files
+      .flat()
+      .filter((s) => s.items.some((i) => i.amount > 0));
+    this.routes = files.reduce((acc, curr, idx) => {
+      const currRoute = curr[0].address.route;
+      if (currRoute && !acc[currRoute]) {
+        acc[currRoute] = { schools: curr };
+      } else if (currRoute) {
+        acc[currRoute].schools.push(...curr);
+      }
+
+      return acc;
+    }, {} as routes);
+    this.step += 4;
   }
 
   onMatchesDone(schools: School[]) {
@@ -40,7 +50,7 @@ export class AppComponent {
 
   numRoutesPicked(num: number) {
     this.numRoutes = num;
-    this.step += 1;
+    this.step += 2;
   }
 
   onRouteReviewDone(routes: routes) {
@@ -56,18 +66,4 @@ export class AppComponent {
   onRestart() {
     this.step = 0;
   }
-
-  // async setDistances() {
-  //   for (let i = 0; i < this.schools.length; i++) {
-  //     await this.mapsService.getCoordinates(this.schools[i]);
-  //   }
-
-  //   geoCluster(this.schools, 3);
-  //   this.schools.forEach((school) => console.log(school.address));
-  //   //this.distances = await this.mapsService.getDistances(this.schools);
-  //   // this.distances.forEach((line) => {
-  //   //   line.forEach((dist) => console.log(`${dist}\t`));
-  //   //   console.log('\n');
-  //   // });
-  // }
 }

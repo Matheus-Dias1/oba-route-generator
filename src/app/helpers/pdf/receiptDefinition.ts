@@ -117,7 +117,7 @@ const receiptDocDefinition = (
                         {
                           image: 'stamp',
                           style: 'stamp',
-                          width: 150,
+                          width: 100,
                           border: [false, false, false, false],
                         },
                       ],

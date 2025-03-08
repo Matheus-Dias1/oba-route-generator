@@ -1,16 +1,9 @@
+import { schools } from './../../mock/schools';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { getReceipt, getRoutesList } from 'src/app/helpers/pdf/generatePDFs';
 import School, { Items } from 'src/app/models/school';
 import { MapsService } from 'src/app/services/maps.service';
-const csv2json = require('../../helpers/csvToJson.js');
-
-const propMap = {
-  address: 'END',
-  name: 'ESCOLA',
-  route: 'ROTA',
-};
-
-const expectedKeys = [propMap.address, propMap.name, propMap.route];
+import * as ExcelJS from 'exceljs';
 
 @Component({
   selector: 'app-home',
@@ -27,58 +20,83 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   onDownloadTemplate() {
-    window.location.href = '../../../assets/template.csv';
+    window.location.href = '../../../assets/template.xlsx';
   }
 
-  async onFileSelect(e: Event) {
-    const csvFiles: any[] = [];
-    if (e.target) {
-      const files = (e.target as HTMLInputElement).files || [];
-      if (!files.length) return;
-      for (let i = 0; i < files.length; i++) {
-        const data = await files[i].text();
-        csvFiles.push(csv2json(data));
-      }
+  async onFileSelect(event: Event): Promise<void> {
+    const element = event.target as HTMLInputElement;
+    const files = element.files;
 
-      const schools: School[][] = [];
-      csvFiles.forEach((file, i) => {
-        schools.push([]);
-        for (let record of file) {
-          const info = {
-            name: record[propMap.name],
-            address: record[propMap.address],
-            route:
-              record[propMap.route] === '' ? undefined : record[propMap.route],
-          };
-          const items: Items = [];
-          for (let key in record) {
-            if (!expectedKeys.includes(key)) {
-              const item = key.split(':')[0].trim();
-              const unit = key.split(':')[1].trim();
-              items.push({
-                description: item,
-                amount: record[key],
-                unit,
-              });
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const schools: School[][] = [];
+    try {
+      this.loading = true;
+      const file = files[0];
+      const arrayBuffer = await file.arrayBuffer();
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.load(arrayBuffer);
+
+      workbook.eachSheet((worksheet, sheetId) => {
+        let name = '';
+        let route = '';
+        const items: string[] = [];
+        const units: string[] = [];
+        const routeSchools: School[] = [];
+
+        worksheet.eachRow((row, rowNumber) => {
+          const rowValues = row.values as (string | number)[];
+          switch (rowNumber) {
+            case 2: {
+              route = rowValues[2] as string;
+              rowValues.splice(0, 3);
+              items.push(...rowValues.map((val) => val as string));
+              break;
+            }
+            case 3: {
+              rowValues.splice(0, 3);
+              units.push(...rowValues.map((val) => val as string));
+              break;
+            }
+            default: {
+              const evenRow = rowNumber % 2 === 0;
+              if (evenRow) {
+                name = rowValues[2] as string;
+              } else {
+                if (name !== undefined) {
+                  const [, , address] = rowValues.splice(0, 3);
+                  const newSchool = new School(
+                    name,
+                    address as string,
+                    rowValues
+                      .map((val, idx) => ({
+                        description: items[idx] as string,
+                        amount: val as number,
+                        unit: units[idx] as string,
+                      }))
+                      .filter((i) => i.amount !== null),
+                    route
+                  );
+                  if (newSchool.items.some((i) => i.amount > 0)) {
+                    routeSchools.push(newSchool);
+                  }
+                }
+              }
             }
           }
-          const school = new School(
-            info.name,
-            info.address,
-            items,
-            info.route ? `OBA-${info.route}` : undefined
-          );
-          schools[i].push(school);
-        }
+        });
+
+        schools.push(routeSchools);
       });
 
       this.files = schools;
-      this.loading = true;
-      await this.setCoordinates();
-      setTimeout(() => {
-        this.loading = false;
-        this.schoolsLoaded.emit(this.files);
-      }, 3000);
+      this.schoolsLoaded.emit(this.files);
+    } catch (error) {
+      console.error('Error processing Excel files:', error);
+    } finally {
+      this.loading = false;
     }
   }
 

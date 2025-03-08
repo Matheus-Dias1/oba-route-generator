@@ -2,20 +2,19 @@
   <div class="content">
     <article>
       <h1>Gerar rotas e canhotos</h1>
-      <p>Para começar, selecione um ou mais arquivos <b>csv</b> compatíveis.</p>
+      <p>Para começar, selecione um arquivo <b>xlsx</b> compatível.</p>
     </article>
     <app-button (click)="onDownloadTemplate()">Baixar template</app-button>
   </div>
   <label class="input" for="upload-files">
     <app-loader *ngIf="loading"></app-loader>
-    <img *ngIf="!loading" src="../../../assets/csv_file.svg" />
-    <p class="gradient-text" *ngIf="!loading">Selecione<br />os arquivos</p>
+    <img *ngIf="!loading" src="../../../assets/xlsx_file.svg" />
+    <p class="gradient-text" *ngIf="!loading">Selecione<br />o arquivo</p>
   </label>
   <input
     type="file"
     id="upload-files"
-    multiple
-    accept=".csv"
+    accept=".xlsx"
     [disabled]="loading"
     (change)="onFileSelect($event)"
   />
