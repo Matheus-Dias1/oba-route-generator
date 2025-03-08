@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import geoCluster from './helpers/geoKMEANS';
-import MOCK_SCHOOLS from './mock/schools';
 import routes from './models/routes';
 import School from './models/school';
-import { MapsService } from './services/maps.service';
 import { workflow } from './workflow';
 
 @Component({

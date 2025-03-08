@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import School, { Items } from 'src/app/models/school';
-import { MapsService } from 'src/app/services/maps.service';
 import * as ExcelJS from 'exceljs';
 
 @Component({
@@ -12,8 +11,6 @@ export class HomeComponent implements OnInit {
   @Output() schoolsLoaded = new EventEmitter<School[][]>();
   files: School[][] = [];
   loading = false;
-
-  constructor(private mapsService: MapsService) {}
 
   ngOnInit(): void {}
 
@@ -96,17 +93,5 @@ export class HomeComponent implements OnInit {
     } finally {
       this.loading = false;
     }
-  }
-
-  async setCoordinates() {
-    // TODO: prompt city somehow
-    // const city = window.prompt('Qual a cidade?');
-    const city = 'Uberlândia';
-    this.files.forEach((file) => {
-      file.forEach(async (school) => {
-        if (school.address.route) return;
-        await this.mapsService.getCoordinates(school, city ? city : '');
-      });
-    });
   }
 }

@@ -9,24 +9,11 @@
       (schoolsLoaded)="onSchoolsLoaded($event)"
     ></app-home>
 
-    <app-matcher
-      *ngIf="workflow[step].step === 'matcher'"
-      [files]="files"
-      (matchesDone)="onMatchesDone($event)"
-    ></app-matcher>
-
     <app-route-selector
       *ngIf="workflow[step].step === 'route-selector'"
       [numSchools]="schools.length"
       (onSelect)="numRoutesPicked($event)"
     ></app-route-selector>
-
-    <app-route-viewer
-      *ngIf="workflow[step].step === 'route-viewer'"
-      [schools]="schools"
-      [numRoutes]="numRoutes"
-      (onFinish)="onRouteReviewDone($event)"
-    ></app-route-viewer>
 
     <app-item-picker
       [files]="files"
