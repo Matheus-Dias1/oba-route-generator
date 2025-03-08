@@ -1,6 +1,4 @@
-import { schools } from './../../mock/schools';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { getReceipt, getRoutesList } from 'src/app/helpers/pdf/generatePDFs';
 import School, { Items } from 'src/app/models/school';
 import { MapsService } from 'src/app/services/maps.service';
 import * as ExcelJS from 'exceljs';
