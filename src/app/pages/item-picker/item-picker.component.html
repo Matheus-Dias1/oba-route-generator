@@ -9,6 +9,9 @@
         >{{ item.key }}</app-button
       >
     </div>
+
+    <h1>Data (opcional)</h1>
+    <input type="date" [(ngModel)]="date" />
   </main>
   <div class="actions">
     <app-button (click)="onContinue()">Continuar</app-button>

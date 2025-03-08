@@ -20,6 +20,7 @@ export class AppComponent {
   routes: routes = {};
   files: School[][] = [];
   schools: School[] = [];
+  date: string | null = null;
   selectedItems: string[] = [];
   numRoutes = 1;
 
@@ -31,7 +32,7 @@ export class AppComponent {
       .flat()
       .filter((s) => s.items.some((i) => i.amount > 0));
     this.routes = files.reduce((acc, curr, idx) => {
-      const currRoute = curr[0].address.route;
+      const currRoute = curr[0]?.address.route;
       if (currRoute && !acc[currRoute]) {
         acc[currRoute] = { schools: curr };
       } else if (currRoute) {
@@ -58,8 +59,9 @@ export class AppComponent {
     this.step += 1;
   }
 
-  onPickItems(selectedItems: string[]) {
+  onPickItems(selectedItems: string[], date: string | null) {
     this.selectedItems = selectedItems;
+    this.date = date;
     this.step += 1;
   }
 

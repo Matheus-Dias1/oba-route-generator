@@ -10,6 +10,7 @@ import routes from 'src/app/models/routes';
 export class FinishComponent implements OnInit {
   @Input() routes: routes = {};
   @Input() selectedItems: string[] = [];
+  @Input() date: string | null = null;
 
   @Output() onRestart = new EventEmitter();
   constructor() {}
@@ -17,7 +18,7 @@ export class FinishComponent implements OnInit {
   ngOnInit(): void {}
 
   onDownloadClick() {
-    getReceipt(this.routes, this.selectedItems);
+    getReceipt(this.routes, this.selectedItems, this.date);
     getRoutesList(this.routes);
   }
 

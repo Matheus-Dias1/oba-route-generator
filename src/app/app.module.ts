@@ -14,7 +14,8 @@ import { ItemPickerComponent } from './pages/item-picker/item-picker.component';
 import { FinishComponent } from './pages/finish/finish.component';
 import { ButtonComponent } from './components/button/button.component';
 import { LoaderComponent } from './components/loader/loader.component';
-// import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     HttpClientModule,
     GoogleMapsModule,
     HttpClientJsonpModule,
+    CommonModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -30,7 +30,7 @@
 
     <app-item-picker
       [files]="files"
-      (onPickItems)="onPickItems($event)"
+      (onPickItems)="onPickItems($event.selected, $event.date)"
       *ngIf="workflow[step].step === 'item-picker'"
     ></app-item-picker>
 
@@ -38,6 +38,7 @@
       *ngIf="workflow[step].step === 'finish'"
       [routes]="routes"
       [selectedItems]="selectedItems"
+      [date]="date"
       (onRestart)="onRestart()"
     ></app-finish>
   </app-card>

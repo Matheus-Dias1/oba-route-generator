@@ -8,17 +8,21 @@ import School from 'src/app/models/school';
 })
 export class ItemPickerComponent implements OnInit {
   @Input() files: School[][] = [];
-  @Output() onPickItems = new EventEmitter<string[]>();
+  @Output() onPickItems = new EventEmitter<{
+    selected: string[];
+    date: string | null;
+  }>();
 
+  date: string | null = null;
   items: {
     [key: string]: boolean;
   } = {};
   constructor() {}
 
   ngOnInit(): void {
-    this.files.forEach((file) => {
-      file[0].items.forEach((item) => {
-        if (!this.items[item.description]) this.items[item.description] = false;
+    this.files.flat().forEach((school) => {
+      school.items.forEach((item) => {
+        if (!this.items[item.description]) this.items[item.description] = true;
       });
     });
   }
@@ -32,6 +36,6 @@ export class ItemPickerComponent implements OnInit {
     for (let key in this.items) {
       if (this.items[key]) selected.push(key);
     }
-    this.onPickItems.emit(selected);
+    this.onPickItems.emit({ selected, date: this.date });
   }
 }

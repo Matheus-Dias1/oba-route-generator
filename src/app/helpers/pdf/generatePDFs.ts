@@ -5,10 +5,14 @@ import receiptDocDefinition from './receiptDefinition';
 import routeListDefinition from './routeListDefinition';
 import routes from 'src/app/models/routes';
 
-export const getReceipt = (routes: routes, selectedItems: string[]) => {
+export const getReceipt = (
+  routes: routes,
+  selectedItems: string[],
+  date: string | null
+) => {
   if (selectedItems.length === 0) return;
   (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
-  const doc = receiptDocDefinition(routes, selectedItems);
+  const doc = receiptDocDefinition(routes, selectedItems, date);
   const pdf = pdfMake.createPdf(doc);
 
   pdf.download('Canhotos');
