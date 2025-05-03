@@ -1,21 +1,21 @@
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
 
-import receiptDocDefinition from './receiptDefinition';
-import routeListDefinition from './routeListDefinition';
-import routes from 'src/app/models/routes';
+import receiptDocDefinition from "./receiptDefinition";
+import routeListDefinition from "./routeListDefinition";
+import routes from "src/app/models/routes";
 
 export const getReceipt = (
   routes: routes,
   selectedItems: string[],
-  date: string | null
+  date: string | null,
 ) => {
   if (selectedItems.length === 0) return;
   (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
   const doc = receiptDocDefinition(routes, selectedItems, date);
   const pdf = pdfMake.createPdf(doc);
 
-  pdf.download('Canhotos');
+  pdf.download("Canhotos");
 };
 
 export const getRoutesList = (routes: routes) => {
@@ -23,5 +23,5 @@ export const getRoutesList = (routes: routes) => {
   const doc = routeListDefinition(routes);
   const pdf = pdfMake.createPdf(doc);
 
-  pdf.download('Rotas');
+  pdf.download("Rotas");
 };

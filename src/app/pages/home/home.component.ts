@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import School, { Items } from 'src/app/models/school';
-import * as ExcelJS from 'exceljs';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import School from "src/app/models/school";
+import * as ExcelJS from "exceljs";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
   @Output() schoolsLoaded = new EventEmitter<School[][]>();
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   onDownloadTemplate() {
-    window.location.href = '../../../assets/template.xlsx';
+    window.location.href = "../../../assets/template.xlsx";
   }
 
   async onFileSelect(event: Event): Promise<void> {
@@ -35,8 +35,8 @@ export class HomeComponent implements OnInit {
       await workbook.xlsx.load(arrayBuffer);
 
       workbook.eachSheet((worksheet, sheetId) => {
-        let name = '';
-        let route = '';
+        let name = "";
+        let route = "";
         const items: string[] = [];
         const units: string[] = [];
         const routeSchools: School[] = [];
@@ -67,12 +67,12 @@ export class HomeComponent implements OnInit {
                     address as string,
                     rowValues
                       .map((val, idx) => ({
-                        description: items[idx] as string,
+                        description: items[idx].trim() as string,
                         amount: val as number,
-                        unit: units[idx] as string,
+                        unit: units[idx].trim() as string,
                       }))
                       .filter((i) => i.amount !== null),
-                    route
+                    route,
                   );
                   if (newSchool.items.some((i) => i.amount > 0)) {
                     routeSchools.push(newSchool);
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
       this.files = schools;
       this.schoolsLoaded.emit(this.files);
     } catch (error) {
-      console.error('Error processing Excel files:', error);
+      console.error("Error processing Excel files:", error);
     } finally {
       this.loading = false;
     }
