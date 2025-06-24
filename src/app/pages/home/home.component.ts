@@ -53,6 +53,13 @@ export class HomeComponent implements OnInit {
             case 3: {
               rowValues.splice(0, 3);
               units.push(...rowValues.map((val) => val as string));
+              console.log(units, items);
+              const missingUnit = units.findIndex((u) => u === undefined);
+              if (missingUnit > -1) {
+                alert(
+                  `A unidade de medida para ${items[missingUnit]} não foi definida na rota ${route}.`,
+                );
+              }
               break;
             }
             default: {
